@@ -176,55 +176,55 @@
     }
   </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 dark-mode-transition page-transition overflow-hidden">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 md:p-6 dark-mode-transition page-transition overflow-hidden">
   <div class="shape shape-1"></div>
   <div class="shape shape-2"></div>
 
-  <div class="absolute top-4 right-4 z-10">
-    <button id="dark-mode-toggle" class="p-2 rounded-full text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-700">
+  <div class="absolute top-2 right-2 sm:top-4 sm:right-4 z-10">
+    <button id="dark-mode-toggle" class="p-2 rounded-full text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-700 min-h-[44px] min-w-[44px]">
       <i class="fas fa-moon dark:hidden"></i>
       <i class="fas fa-sun hidden dark:block"></i>
     </button>
   </div>
 
-  <div class="max-w-md w-full space-y-8 glass-effect p-8 rounded-xl shadow-xl card-float backdrop-blur-sm bg-white/90 dark:bg-gray-800/80">
+  <div class="max-w-md w-full space-y-4 sm:space-y-8 glass-effect p-4 sm:p-6 md:p-8 rounded-xl shadow-xl card-float backdrop-blur-sm bg-white/90 dark:bg-gray-800/80 auth-card">
     <div class="text-center">
-      <div class="flex justify-center mb-4">
-        <div class="w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center">
-          <i class="fas fa-wallet text-3xl text-primary dark:text-indigo-400"></i>
+      <div class="flex justify-center mb-3 sm:mb-4">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center">
+          <i class="fas fa-wallet text-2xl sm:text-3xl text-primary dark:text-indigo-400"></i>
         </div>
       </div>
-      <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Daily Expense Tracker</h1>
-      <p class="text-sm text-gray-600 dark:text-gray-400">Track and manage your expenses efficiently</p>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Daily Expense Tracker</h1>
+      <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Track and manage your expenses efficiently</p>
     </div>
     
-    <div class="mt-8 space-y-6">
+    <div class="mt-4 sm:mt-8 space-y-4 sm:space-y-6">
       <div class="custom-tabs">
-        <button id="login-tab" class="custom-tab active">Login</button>
-        <button id="signup-tab" class="custom-tab">Sign Up</button>
+        <button id="login-tab" class="custom-tab active text-sm sm:text-base">Login</button>
+        <button id="signup-tab" class="custom-tab text-sm sm:text-base">Sign Up</button>
         <div class="tab-indicator" id="tab-indicator"></div>
       </div>
       
       <!-- Login Form -->
-      <form id="login-form" class="mt-8 space-y-6 form-fade-in">
-        <div class="rounded-md shadow-sm space-y-4">
+      <form id="login-form" class="mt-4 sm:mt-8 space-y-4 sm:space-y-6 form-fade-in">
+        <div class="rounded-md shadow-sm space-y-3 sm:space-y-4">
           <div class="form-group">
-            <small>Email address</small>
+            <small class="text-xs sm:text-sm">Email address</small>
             <div class="relative">
               <input id="login-email" name="email" type="email" required
-                    class="form-control appearance-none relative block w-full">
+                    class="form-control appearance-none relative block w-full text-sm sm:text-base">
               <div class="input-field-icon">
-                <i class="fas fa-envelope"></i>
+                <i class="fas fa-envelope text-sm sm:text-base"></i>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <small>Password</small>
+            <small class="text-xs sm:text-sm">Password</small>
             <div class="relative">
               <input id="login-password" name="password" type="password" required
-                    class="form-control appearance-none relative block w-full">
+                    class="form-control appearance-none relative block w-full text-sm sm:text-base">
               <div class="input-field-icon password-toggle">
-                <i class="fas fa-eye-slash"></i>
+                <i class="fas fa-eye-slash text-sm sm:text-base"></i>
               </div>
             </div>
           </div>
@@ -232,50 +232,50 @@
 
         <div>
           <button type="submit" 
-                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                class="group relative w-full flex justify-center py-2.5 sm:py-3 px-4 border border-transparent text-sm sm:text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 min-h-[44px]">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <i class="fas fa-sign-in-alt group-hover:animate-bounce"></i>
+              <i class="fas fa-sign-in-alt group-hover:animate-bounce text-sm sm:text-base"></i>
             </span>
             Sign in
           </button>
         </div>
         
-        <div class="flex items-center justify-center mt-4">
-          <span class="text-sm text-gray-500 dark:text-gray-400">Don't have an account? </span>
-          <button type="button" id="switch-to-signup" class="ml-1 text-sm text-primary dark:text-indigo-400 hover:underline">Create one now</button>
+        <div class="flex flex-col sm:flex-row items-center justify-center mt-3 sm:mt-4 gap-1">
+          <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Don't have an account?</span>
+          <button type="button" id="switch-to-signup" class="text-xs sm:text-sm text-primary dark:text-indigo-400 hover:underline font-medium">Create one now</button>
         </div>
       </form>
       
       <!-- Signup Form -->
-      <form id="signup-form" class="mt-8 space-y-6 hidden form-fade-in">
-        <div class="rounded-md shadow-sm space-y-4">
+      <form id="signup-form" class="mt-4 sm:mt-8 space-y-4 sm:space-y-6 hidden form-fade-in">
+        <div class="rounded-md shadow-sm space-y-3 sm:space-y-4">
           <div class="form-group">
-            <small>Full name</small>
+            <small class="text-xs sm:text-sm">Full name</small>
             <div class="relative">
               <input id="signup-name" name="name" type="text" required
-                    class="form-control appearance-none relative block w-full">
+                    class="form-control appearance-none relative block w-full text-sm sm:text-base">
               <div class="input-field-icon">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user text-sm sm:text-base"></i>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <small>Email address</small>
+            <small class="text-xs sm:text-sm">Email address</small>
             <div class="relative">
               <input id="signup-email" name="email" type="email" required
-                    class="form-control appearance-none relative block w-full">
+                    class="form-control appearance-none relative block w-full text-sm sm:text-base">
               <div class="input-field-icon">
-                <i class="fas fa-envelope"></i>
+                <i class="fas fa-envelope text-sm sm:text-base"></i>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <small>Password</small>
+            <small class="text-xs sm:text-sm">Password</small>
             <div class="relative">
               <input id="signup-password" name="password" type="password" required
-                    class="form-control appearance-none relative block w-full">
+                    class="form-control appearance-none relative block w-full text-sm sm:text-base">
               <div class="input-field-icon password-toggle">
-                <i class="fas fa-eye-slash"></i>
+                <i class="fas fa-eye-slash text-sm sm:text-base"></i>
               </div>
             </div>
           </div>
@@ -283,23 +283,23 @@
 
         <div>
           <button type="submit" 
-                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                class="group relative w-full flex justify-center py-2.5 sm:py-3 px-4 border border-transparent text-sm sm:text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 min-h-[44px]">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <i class="fas fa-user-plus group-hover:animate-bounce"></i>
+              <i class="fas fa-user-plus group-hover:animate-bounce text-sm sm:text-base"></i>
             </span>
             Create Account
           </button>
         </div>
         
-        <div class="flex items-center justify-center mt-4">
-          <span class="text-sm text-gray-500 dark:text-gray-400">Already have an account? </span>
-          <button type="button" id="switch-to-login" class="ml-1 text-sm text-primary dark:text-indigo-400 hover:underline">Sign in</button>
+        <div class="flex flex-col sm:flex-row items-center justify-center mt-3 sm:mt-4 gap-1">
+          <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Already have an account?</span>
+          <button type="button" id="switch-to-login" class="text-xs sm:text-sm text-primary dark:text-indigo-400 hover:underline font-medium">Sign in</button>
         </div>
       </form>
     </div>
   </div>
   
-  <div class="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
+  <div class="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 px-2">
     <p>© 2023 Daily Expense Tracker | All Rights Reserved</p>
   </div>
 

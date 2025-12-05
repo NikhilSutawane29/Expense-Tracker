@@ -163,17 +163,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Render expenses to the table
   const renderExpenses = () => {
-    // Clear the table
-    expenseTableBody.innerHTML = '';
+    // Clear both table and card container with null checks
+    if (expenseTableBody) {
+      expenseTableBody.innerHTML = '';
+    }
+    const expenseCardContainer = document.getElementById('expense-card-container');
+    if (expenseCardContainer) {
+      expenseCardContainer.innerHTML = '';
+    }
     
     // Filter expenses
     let filteredExpenses = [...expenses];
     
-    if (categoryFilter.value) {
+    if (categoryFilter && categoryFilter.value) {
       filteredExpenses = filteredExpenses.filter(exp => exp.category === categoryFilter.value);
     }
     
-    if (dateFilter.value) {
+    if (dateFilter && dateFilter.value) {
       const filterDate = new Date(dateFilter.value).toISOString().split('T')[0];
       filteredExpenses = filteredExpenses.filter(exp => {
         const expDate = new Date(exp.date).toISOString().split('T')[0];
@@ -183,19 +189,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Check if there are expenses to display
     if (filteredExpenses.length === 0) {
-      expenseTableBody.innerHTML = '';
-      noExpensesMessage.classList.remove('hidden');
+      if (expenseTableBody) expenseTableBody.innerHTML = '';
+      if (expenseCardContainer) expenseCardContainer.innerHTML = '';
+      if (noExpensesMessage) noExpensesMessage.classList.remove('hidden');
       return;
     }
     
     // Hide the no expenses message
-    noExpensesMessage.classList.add('hidden');
+    if (noExpensesMessage) noExpensesMessage.classList.add('hidden');
     
-    // Render expenses
+    // Render expenses for both views
     filteredExpenses.forEach(expense => {
-      const row = document.createElement('tr');
-      row.className = 'table-row-animate';
-      
       // Format date
       const date = new Date(expense.date);
       const formattedDate = date.toLocaleDateString('en-IN', {
@@ -214,27 +218,67 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Get category icon
       const categoryIcon = getCategoryIcon(expense.category);
       
+      // TABLE VIEW (Desktop)
+      const row = document.createElement('tr');
+      row.className = 'table-row-animate hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors';
+      
       row.innerHTML = `
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${formattedDate}</td>
-        <td class="px-6 py-4 whitespace-nowrap">
+        <td class="px-4 lg:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-700 dark:text-gray-300">${formattedDate}</td>
+        <td class="px-4 lg:px-6 py-3 sm:py-4 whitespace-nowrap">
           <div class="flex items-center">
-            <span class="text-lg mr-2 category-icon text-gray-700 dark:text-gray-300">${categoryIcon}</span>
-            <span class="text-sm text-gray-700 dark:text-gray-300">${expense.category}</span>
+            <span class="text-base sm:text-lg mr-2 category-icon">${categoryIcon}</span>
+            <span class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">${expense.category}</span>
           </div>
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">${expense.description || '-'}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300">${formattedAmount}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-          <button class="edit-btn text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3" data-id="${expense._id}">
+        <td class="px-4 lg:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300 max-w-[150px] truncate">${expense.description || '-'}</td>
+        <td class="px-4 lg:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100">${formattedAmount}</td>
+        <td class="px-4 lg:px-6 py-3 sm:py-4 whitespace-nowrap text-right text-sm font-medium">
+          <button class="edit-btn text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-2 sm:mr-3 p-2 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded transition-all" data-id="${expense._id}" title="Edit">
             <i class="fas fa-edit"></i>
           </button>
-          <button class="delete-btn text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300" data-id="${expense._id}">
+          <button class="delete-btn text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 p-2 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-all" data-id="${expense._id}" title="Delete">
             <i class="fas fa-trash-alt"></i>
           </button>
         </td>
       `;
       
-      expenseTableBody.appendChild(row);
+      if (expenseTableBody) {
+        expenseTableBody.appendChild(row);
+      }
+      
+      // CARD VIEW (Mobile)
+      if (expenseCardContainer) {
+        const card = document.createElement('div');
+        card.className = 'expense-card bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all';
+        
+        card.innerHTML = `
+          <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center">
+              <span class="text-2xl mr-3 category-icon">${categoryIcon}</span>
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white">${expense.category}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</p>
+              </div>
+            </div>
+            <p class="text-lg font-bold text-gray-900 dark:text-white">${formattedAmount}</p>
+          </div>
+          
+          <div class="mb-3 ${expense.description ? '' : 'hidden'}">
+            <p class="text-sm text-gray-600 dark:text-gray-400">${expense.description || ''}</p>
+          </div>
+          
+          <div class="flex justify-end gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+            <button class="edit-btn flex items-center justify-center text-indigo-600 hover:text-white dark:text-indigo-400 hover:bg-indigo-600 dark:hover:bg-indigo-500 px-4 py-2 rounded-lg transition-all font-medium text-sm min-h-[40px]" data-id="${expense._id}">
+              <i class="fas fa-edit mr-1.5"></i> Edit
+            </button>
+            <button class="delete-btn flex items-center justify-center text-red-600 hover:text-white dark:text-red-400 hover:bg-red-600 dark:hover:bg-red-500 px-4 py-2 rounded-lg transition-all font-medium text-sm min-h-[40px]" data-id="${expense._id}">
+              <i class="fas fa-trash-alt mr-1.5"></i> Delete
+            </button>
+          </div>
+        `;
+        
+        expenseCardContainer.appendChild(card);
+      }
     });
     
     // Add event listeners to edit and delete buttons
@@ -302,22 +346,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const todayAmount = todayExpenses.reduce((total, expense) => total + expense.amount, 0);
     
-    // Format and update UI
-    totalAmountEl.textContent = new Intl.NumberFormat('en-IN').format(totalAmount);
-    monthAmountEl.textContent = new Intl.NumberFormat('en-IN').format(monthAmount);
-    todayAmountEl.textContent = new Intl.NumberFormat('en-IN').format(todayAmount);
+    // Format and update UI with null checks
+    if (totalAmountEl) {
+      totalAmountEl.textContent = new Intl.NumberFormat('en-IN').format(totalAmount);
+    }
+    if (monthAmountEl) {
+      monthAmountEl.textContent = new Intl.NumberFormat('en-IN').format(monthAmount);
+    }
+    if (todayAmountEl) {
+      todayAmountEl.textContent = new Intl.NumberFormat('en-IN').format(todayAmount);
+    }
   };
   
   // Open modal for adding expense
   const openAddModal = () => {
-    modalTitle.textContent = 'Add Expense';
-    document.getElementById('expense-id').value = '';
-    document.getElementById('amount').value = '';
-    document.getElementById('category').value = '';
-    document.getElementById('description').value = '';
-    document.getElementById('date').valueAsDate = new Date();
+    if (modalTitle) modalTitle.textContent = 'Add Expense';
+    const expenseIdEl = document.getElementById('expense-id');
+    const amountEl = document.getElementById('amount');
+    const categoryEl = document.getElementById('category');
+    const descriptionEl = document.getElementById('description');
+    const dateEl = document.getElementById('date');
     
-    expenseModal.classList.remove('hidden');
+    if (expenseIdEl) expenseIdEl.value = '';
+    if (amountEl) amountEl.value = '';
+    if (categoryEl) categoryEl.value = '';
+    if (descriptionEl) descriptionEl.value = '';
+    if (dateEl) dateEl.valueAsDate = new Date();
+    
+    if (expenseModal) expenseModal.classList.remove('hidden');
   };
   
   // Open modal for editing expense
@@ -432,20 +488,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
   
-  // Event Listeners
-  addExpenseBtn.addEventListener('click', openAddModal);
-  closeModalBtn.addEventListener('click', closeModal);
-  cancelBtn.addEventListener('click', closeModal);
+  // Event Listeners with null checks
+  if (addExpenseBtn) addExpenseBtn.addEventListener('click', openAddModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
   
-  cancelDeleteBtn.addEventListener('click', closeDeleteModal);
-  confirmDeleteBtn.addEventListener('click', () => {
-    if (currentExpenseId) {
-      deleteExpense(currentExpenseId);
-    }
-  });
+  if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener('click', () => {
+      if (currentExpenseId) {
+        deleteExpense(currentExpenseId);
+      }
+    });
+  }
   
   // Handle form submission
-  expenseForm.addEventListener('submit', (e) => {
+  if (expenseForm) {
+    expenseForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
     const id = document.getElementById('expense-id').value;
@@ -466,11 +525,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       createExpense(expenseData);
     }
-  });
+    });
+  }
   
   // Handle filters
-  categoryFilter.addEventListener('change', renderExpenses);
-  dateFilter.addEventListener('change', renderExpenses);
+  if (categoryFilter) categoryFilter.addEventListener('change', renderExpenses);
+  if (dateFilter) dateFilter.addEventListener('change', renderExpenses);
   
   // Start with a connection test
   testConnection();

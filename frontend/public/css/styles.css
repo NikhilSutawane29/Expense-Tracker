@@ -47,6 +47,360 @@
   }
 }
 
+/* ============================================
+   COMPREHENSIVE RESPONSIVE DESIGN SYSTEM
+   ============================================ */
+
+/* Mobile First Base Styles */
+body {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Responsive Container Padding */
+.container-responsive {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Responsive Typography */
+@media (min-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+h1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+h2 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h2 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+/* Mobile Navigation Enhancements */
+.mobile-menu-button {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .mobile-menu-button {
+    display: none;
+  }
+}
+
+/* Responsive Tables */
+@media (max-width: 768px) {
+  .responsive-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .responsive-table table {
+    min-width: 600px;
+  }
+  
+  .responsive-table th,
+  .responsive-table td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Responsive Cards */
+.card-grid {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Responsive Modal */
+@media (max-width: 640px) {
+  .modal-content {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+    max-width: none;
+  }
+  
+  .modal-content .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Responsive Form Inputs */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+  }
+}
+
+/* Responsive Buttons */
+button,
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  button,
+  .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive Navigation Bar */
+@media (max-width: 639px) {
+  nav .flex.items-center span {
+    display: none; /* Hide user name on very small screens */
+  }
+  
+  nav h1 {
+    font-size: 1rem;
+  }
+}
+
+/* Touch-friendly clickable areas */
+@media (max-width: 768px) {
+  .btn,
+  button,
+  a {
+    min-height: 44px; /* iOS guideline for touch targets */
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Responsive Dashboard Summary Cards */
+@media (max-width: 640px) {
+  .summary-card h4 {
+    font-size: 0.75rem;
+  }
+  
+  .summary-card p {
+    font-size: 1.25rem;
+  }
+}
+
+/* Responsive Filter Controls */
+@media (max-width: 640px) {
+  .filter-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .filter-controls select,
+  .filter-controls input {
+    width: 100%;
+  }
+}
+
+/* Landscape Orientation Fixes */
+@media (max-height: 500px) and (orientation: landscape) {
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* Budget Progress Bar Responsive */
+@media (max-width: 640px) {
+  .budget-progress {
+    font-size: 0.875rem;
+  }
+}
+
+/* Responsive Login/Signup Card */
+@media (max-width: 640px) {
+  .auth-card {
+    margin: 1rem;
+    padding: 1.5rem !important;
+  }
+  
+  .shape {
+    display: none; /* Hide decorative shapes on mobile */
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Responsive Flexbox Utilities */
+@media (max-width: 640px) {
+  .flex-col-mobile {
+    flex-direction: column;
+  }
+  
+  .w-full-mobile {
+    width: 100%;
+  }
+  
+  .text-center-mobile {
+    text-align: center;
+  }
+}
+
+/* Dark Mode Touch Feedback */
+.dark button:active,
+.dark a:active {
+  opacity: 0.7;
+}
+
+/* Improved Touch Scrolling */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Responsive Grid Gaps */
+.grid {
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: 2rem;
+  }
+}
+
+/* Mobile-Friendly Table Alternative (Card View) */
+@media (max-width: 640px) {
+  .expense-card-view {
+    display: block;
+  }
+  
+  .expense-table-view {
+    display: none;
+  }
+  
+  .expense-card {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .expense-card {
+    background: rgba(55, 65, 81, 0.8);
+  }
+}
+
+@media (min-width: 641px) {
+  .expense-card-view {
+    display: none;
+  }
+  
+  .expense-table-view {
+    display: block;
+  }
+}
+
+/* Safe Area Insets for Notched Devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  nav {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+/* Responsive Font Scaling */
+@media (max-width: 375px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 18px;
+  }
+}
+
 /* Main Styles for Daily Expense Tracker */
 /* Base transitions */
 * {
