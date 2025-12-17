@@ -12,18 +12,27 @@ const budgetRoutes = require('./routes/budget');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS Configuration - allow any localhost origin during development
+// CORS Configuration - allow localhost and production domains
+const allowedOrigins = [
+  'http://localhost:3002',
+  'http://127.0.0.1:3002',
+  'https://expense-tracker-nikhil.vercel.app' // Replace with your actual Vercel domain
+];
+
 app.use(cors({
   origin: function(origin, callback) {
     // Allow requests with no origin (like mobile apps, curl requests)
     if (!origin) return callback(null, true);
     
-    // Allow all localhost origins regardless of port
+    // Allow all localhost origins for development
     if (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
       return callback(null, true);
     }
     
-    // If deploying to production, you can add specific domains here
+    // Allow specific production domains
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
     
     callback(new Error('Not allowed by CORS'));
   },
