@@ -40,8 +40,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   const totalAmountEl = document.getElementById('total-amount');
   const monthAmountEl = document.getElementById('month-amount');
   const todayAmountEl = document.getElementById('today-amount');
+  const currentMonthNameEl = document.getElementById('current-month-name');
+  const currentDateEl = document.getElementById('current-date');
   const categoryFilter = document.getElementById('category-filter');
   const dateFilter = document.getElementById('date-filter');
+  
+  // Set current month name and date
+  const now = new Date();
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+  if (currentMonthNameEl) {
+    currentMonthNameEl.textContent = monthNames[now.getMonth()] + ' ' + now.getFullYear();
+  }
+  if (currentDateEl) {
+    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+    currentDateEl.textContent = now.toLocaleDateString('en-US', options);
+  }
   
   // Get user token from localStorage
   const token = localStorage.getItem('token');
