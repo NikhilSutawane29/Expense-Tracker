@@ -408,10 +408,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
   
   // Create a new expense - with additional connection check
+  let isSubmitting = false; // Prevent double submission
+  
   const createExpense = async (expenseData) => {
+    if (isSubmitting) {
+      console.log('Already submitting, preventing duplicate');
+      return;
+    }
+    
     try {
+      isSubmitting = true;
+      
       if (!isConnectedToServer) {
         showNotification('Cannot add expenses: Not connected to server', true);
+        isSubmitting = false;
         return;
       }
       
@@ -435,6 +445,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       console.error('Error creating expense:', error);
       showNotification(`Error: ${error.message}`, true);
+    } finally {
+      isSubmitting = false;
     }
   };
   
@@ -504,27 +516,48 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Handle form submission
   if (expenseForm) {
-    expenseForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const id = document.getElementById('expense-id').value;
-    const amount = parseFloat(document.getElementById('amount').value);
-    const category = document.getElementById('category').value;
-    const description = document.getElementById('description').value;
-    const date = document.getElementById('date').value;
-    
-    const expenseData = {
-      amount,
-      category,
-      description,
-      date: new Date(date)
-    };
-    
-    if (id) {
-      updateExpense(id, expenseData);
-    } else {
-      createExpense(expenseData);
-    }
+    expenseForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Prevent double submission
+      const submitBtn = expenseForm.querySelector('button[type="submit"]');
+      if (submitBtn && submitBtn.disabled) {
+        console.log('Form already submitting, ignoring duplicate submission');
+        return;
+      }
+      
+      // Disable submit button
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Saving...';
+      }
+      
+      try {
+        const id = document.getElementById('expense-id').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+        const category = document.getElementById('category').value;
+        const description = document.getElementById('description').value;
+        const date = document.getElementById('date').value;
+        
+        const expenseData = {
+          amount,
+          category,
+          description,
+          date: new Date(date)
+        };
+        
+        if (id) {
+          await updateExpense(id, expenseData);
+        } else {
+          await createExpense(expenseData);
+        }
+      } finally {
+        // Re-enable submit button
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Save Expense';
+        }
+      }
     });
   }
   
