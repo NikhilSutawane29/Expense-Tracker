@@ -315,21 +315,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   const getCategoryIcon = (category) => {
     switch(category) {
       case 'Food':
-        return '<i class="fas fa-utensils"></i>';
+        return '<i class="fas fa-utensils text-orange-600 dark:text-orange-400"></i>';
       case 'Transportation':
-        return '<i class="fas fa-car"></i>';
+        return '<i class="fas fa-car text-blue-600 dark:text-blue-400"></i>';
       case 'Shopping':
-        return '<i class="fas fa-shopping-bag"></i>';
+        return '<i class="fas fa-shopping-bag text-pink-600 dark:text-pink-400"></i>';
       case 'Entertainment':
-        return '<i class="fas fa-film"></i>';
+        return '<i class="fas fa-film text-purple-600 dark:text-purple-400"></i>';
       case 'Bills':
-        return '<i class="fas fa-file-invoice-dollar"></i>';
+        return '<i class="fas fa-file-invoice-dollar text-red-600 dark:text-red-400"></i>';
       case 'Health':
-        return '<i class="fas fa-heartbeat"></i>';
+        return '<i class="fas fa-heartbeat text-rose-600 dark:text-rose-400"></i>';
       case 'Other':
-        return '<i class="fas fa-box"></i>';
+        return '<i class="fas fa-box text-gray-600 dark:text-gray-400"></i>';
       default:
-        return '<i class="fas fa-tag"></i>';
+        return '<i class="fas fa-tag text-gray-600 dark:text-gray-400"></i>';
     }
   };
   
